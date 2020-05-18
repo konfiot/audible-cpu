@@ -18,12 +18,21 @@ class Sin:
 	def get_samples(self, n_samples):
 		out = []
 
-		for i in range(n_samples):
-			self.time += 1/self.sampling
-			self.current_amp = self.current_amp - (self.current_amp - self.target_amp)/(self.tau*self.sampling)
+		times = np.linspace(1/self.sampling, n_samples/self.sampling, n_samples)
+		phases = self.time + times
+		amplitudes = self.target_amp - (self.target_amp - self.current_amp)*np.exp(-times/self.tau)
 
-			sample = self.current_amp*np.sin(self.time*2*np.pi*self.frequency)
-			out.append(sample)
+		out = amplitudes * np.sin(phases*2*np.pi*self.frequency)
+
+		self.time = phases[-1]
+		self.current_amp = amplitudes[-1]
+
+#		for i in range(n_samples):
+#			self.time += 1/self.sampling
+#			self.current_amp = self.current_amp - (self.current_amp - self.target_amp)/(self.tau*self.sampling)
+#
+#			sample = self.current_amp*np.sin(self.time*2*np.pi*self.frequency)
+#			out.append(sample)
 
 		return np.array(out)
 
