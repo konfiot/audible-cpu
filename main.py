@@ -23,7 +23,8 @@ for pid in psutil.pids():
 	#if sys.argv[1] in p.name():
 		processes.append(p)
 
-	frequency = 440*np.logspace(-1, 1, len(processes), base=2)
+
+frequency = 440*np.logspace(-1, 1, len(processes), base=2)
 
 for p in range(len(processes)):
 	sines.append(sin.Sin(frequency[p], fs, tau))
@@ -44,7 +45,10 @@ while True:
 	percents = np.array([p.cpu_percent() for p in processes])
 
 	for p in range(len(percents)):
-		sines[p].set_amplitude(percents[p])
+		if percents[p] <= 2:
+			sines[p].set_amplitude(0)
+		else:
+			sines[p].set_amplitude(100*np.exp((percents[p]-max(100, max(percents)))/15))
 
 
 	width = 50
