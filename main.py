@@ -23,7 +23,7 @@ for pid in psutil.pids():
 	#if sys.argv[1] in p.name():
 		processes.append(p)
 
-	frequency = np.linspace(440, 3000, len(processes))
+	frequency = np.linspace(440, 2000, len(processes))
 
 for p in range(len(processes)):
 	sines.append(sin.Sin(frequency[p], fs, tau))
@@ -38,6 +38,7 @@ def print_waterfall(percents):
 	print()
 
 stream = audio.output(fs)
+stream.start()
 
 while True:
 	percents = np.array([p.cpu_percent() for p in processes])
