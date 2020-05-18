@@ -23,7 +23,7 @@ for pid in psutil.pids():
 	#if sys.argv[1] in p.name():
 		processes.append(p)
 
-	frequency = 440*np.logspace(-1, 1.58496250072, len(processes), base=2)
+	frequency = 440*np.logspace(-1, 1, len(processes), base=2)
 
 for p in range(len(processes)):
 	sines.append(sin.Sin(frequency[p], fs, tau))
