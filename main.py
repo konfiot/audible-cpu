@@ -48,7 +48,7 @@ while True:
 		if percents[p] <= 2:
 			sines[p].set_amplitude(0)
 		else:
-			sines[p].set_amplitude(100*np.exp((percents[p]-max(100, max(percents)))/15))
+			sines[p].set_amplitude(100*np.exp((percents[p]-max(100, max(percents)))/20))
 
 
 	width = 50
