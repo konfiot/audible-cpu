@@ -42,7 +42,14 @@ stream = audio.output(fs)
 stream.start()
 
 while True:
-	percents = np.array([p.cpu_percent() for p in processes])
+	percents = []
+	for p in processes:
+		try:
+			percents.append(p.cpu_percent())
+		except psutil.NoSuchProcess:
+			percents.append(0)
+
+
 
 	for p in range(len(percents)):
 		if percents[p] <= 2:
