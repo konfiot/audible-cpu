@@ -9,6 +9,7 @@ verify_ssl = true
 simpleaudio = "*"
 psutil = "*"
 numpy = "*"
+ansicolors = "*"
 
 [requires]
 python_version = "3.6"

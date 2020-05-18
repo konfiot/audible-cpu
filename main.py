@@ -4,6 +4,7 @@ import psutil
 import time
 import sys
 import getpass
+from colors import color
 
 print(sys.argv)
 
@@ -16,6 +17,14 @@ for pid in psutil.pids():
 	#if sys.argv[1] in p.name():
 		processes.append(p)
 play_obj = None
+
+def print_waterfall(percents):
+	for percent in percents:
+		strength = int(percent/100*255)
+		rgb = (strength, strength, strength)
+		print(color(' ', rgb, rgb), end="")
+
+	print()
 
 while True:
 	time.sleep(0.05)
@@ -34,13 +43,10 @@ while True:
 
 	# Ensure that highest value is in 16-bit range
 	audio = note * (2**15 - 1) / np.max(np.abs(note))
-	#if percent <= 10:
-	#	audio *= 0
-	#else:
-	#	audio *= percent/100
 	# Convert to 16-bit data
 	audio = audio.astype(np.int16)
 
+	print_waterfall(percents)
 
 	# Start playback
 	if not first:
